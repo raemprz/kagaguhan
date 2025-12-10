@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GigaNigga</title>
+</head>
+<body> 
+
+<style> 
+h1 {
+color: white; }
+a {
+    color: black;
+    text-decoration: underline;
+    font-family: 'Arial', sans-serif;
+    font-size: 40px;
+}
+body {
+    background-image: url("https://cdn.wallpapersafari.com/35/35/HV1QZk.jpg");
+    background-size: cover;  
+    
+}
+
+button {
+    font-family: sans-serif !important;
+    appearance: none;
+    -webkit-appearance: none;
+    font-size: 40px;
+}
+
+label {
+    color: white;
+    -webkit-text-stroke: 0.5px black;
+    font-size: 40px;
+}
+
+a {
+    color: black;
+    -webkit-text-stroke: 0.1px white;
+}
+
+input {
+    width: 290px;
+    height: 30px;
+    font-size: 25px;
+}
+
+</style>
+<center>
+<form>
+
+
+<br>
+
+    <h1 style="font-family: sans-serif; font-size: 90px;"> <b>Login to Roblox!</b> </h1>
+    <b><label style="font-family: sans-serif;" for="email">Enter Username or Email: </label><br></b>
+    <input type="text" id="email" name="email">
+
+    <br>
+    <br>
+
+    <b><label style="font-family: sans-serif;"for="password">Enter Password: </label><br></b>
+    <input type="text" id="password" name="password"> <br><br>
+
+    <a href="https://roblox.com">
+    <button type="button" >Log in</button>
+</a>
+
+<br>
+<br>
+<br>
+<br>
+
+<a href="https://en.help.roblox.com/hc/en-us/articles/203313070-I-Forgot-My-Password">Forgot Email or Password?</a>
+
+<br>
+<br>
+<br>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
+    <button type="button">Email me a One-Time code</button>
+</a>
+
+<br>
+<br>
+<a href="https://monkeytype.com/">
+<button type="button" style="font-size: 30px;">
+    Don't have an account? Sign up
+</button>
+</a>
+
+</form>
+</center>
+    
+    
+</body>
+</html>
