@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/tablogo.png" type="image/png">
+    <title>Contact - VenPCS</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/about.css">
+    <script src="../js/theme.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navigation" aria-label="Main navigation">
+        <a class="nav-link" href="index.html"><b>Home</b></a>
+        <a class="nav-link" href="products.html"><b>IT Products</b></a>
+        <a class="nav-link" href="about.html"><b>About</b></a>
+        <button class="nav-action" type="button" onclick="alert('Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <a class="nav-link" href="../user/feedback.html"><b>Feedback</b></a>
+        <button class="nav-action" id="loginBtn" data-login-href="../auth/login.html" type="button"><b>Login/Signup</b></button>
+        <button class="nav-action nav-hidden" id="logoutBtn" type="button"><b>Logout</b></button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+            <span class="theme-icon">🌙</span><span class="theme-label">Dark</span>
+        </button>
+    </nav>
+</header>
+
+<a href="index.html">
+    <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+</a>
+
+<main class="page-content">
+
+    <section class="about-hero">
+        <h1>Contact VenPCS</h1>
+        <p>Have a question about our products or services? Visit our main shop location or reach out to us using the contact information below.</p>
+    </section>
+
+    <section class="about-grid location-grid">
+
+        <article class="about-card">
+            <div class="about-icon">📍</div>
+            <h3>Main Shop</h3>
+            <p><strong>San Nicolas, Hagonoy, Bulacan, Philippines</strong></p>
+            <a href="https://www.google.com/maps/search/?api=1&query=San+Nicolas+Hagonoy+Bulacan" target="_blank" rel="noopener">View location</a>
+        </article>
+
+        <article class="about-card">
+            <div class="about-icon">🌎</div>
+            <h3>Antarctica Branch</h3>
+            <p>Research Station Road, McMurdo Station, Antarctica</p>
+            <small>Fictional project location.</small>
+        </article>
+
+        <article class="about-card">
+            <div class="about-icon">🏙️</div>
+            <h3>Manila / BGC Branch</h3>
+            <p>5th Avenue, Bonifacio Global City, Taguig, Metro Manila, Philippines</p>
+            <small>Fictional project location.</small>
+        </article>
+
+    </section>
+
+   <section class="about-story contact-layout">
+
+    <div class="contact-information">
+        <h2>Contact Information</h2>
+
+        <div class="contact-columns">
+
+            <!-- LEFT: PHONE NUMBERS -->
+            <div class="contact-group">
+                <h3>Phone Numbers</h3>
+
+                <p>
+                    <a href="tel:+639121514577">
+                        +63 912-151-4577
+                    </a>
+                </p>
+
+                <p>
+                    <a href="tel:+636969676967">
+                        +63 696-967-6967
+                    </a>
+                </p>
+            </div>
+
+            <!-- RIGHT: EMAIL ADDRESSES -->
+            <div class="contact-group">
+                <h3>Email Addresses</h3>
+
+                <p>
+                    <a href="mailto:venpcs@gmail.com">
+                        venpcs@gmail.com
+                    </a>
+                </p>
+
+                <p>
+                    <a href="mailto:perezraevenn1@gmail.com">
+                        perezraevenn1@gmail.com
+                    </a>
+                </p>
+
+                <p>
+                    <a href="mailto:reyesesto@gmail.com">
+                        reyesesto@gmail.com
+                    </a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+    <div class="footer-bottom">© 2026 VenPCS. All rights reserved.</div>
+</footer>
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (loggedInUser) {
+        // User is logged in
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-flex";
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.reload();
+        });
+
+    } else {
+        // User is logged out
+        loginBtn.style.display = "inline-flex";
+        logoutBtn.style.display = "none";
+
+        loginBtn.addEventListener("click", () => {
+            window.location.href = loginBtn.dataset.loginHref;
+        });
+    }
+
+});
+</script>
+
+
+
+</body>
+</html>

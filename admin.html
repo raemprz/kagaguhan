@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/tablogo.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/user.css">
+    <script src="../js/theme.js"></script>
+    <title>Admin Panel - VenPCS</title>
+</head>
+<body>
+
+    <div class="navigation">
+        <button onclick="window.location.href='../main/index.html'"><b>Home</b></button>
+        <button onclick="window.location.href='../main/products.html'"><b>IT Products</b></button>
+        <button onclick="window.location.href='../main/about.html'"><b>About</b></button>
+        <button onclick="alert('Error 69: Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <button onclick="window.location.href='feedback.html'"><b>Feedback</b></button>
+        <button id="loginBtn" onclick="window.location.href='../auth/login.html'"><b>Login/Signup</b></button>
+        <button id="logoutBtn" class="js-hidden"><b>Logout</b></button>
+        <button id="themeToggle">🌙 Dark</button>
+    </div>
+
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
+        <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+    </a>
+
+    <div class="admin-page-content">
+        <h1>Admin Panel</h1>
+
+        <div class="section-card">
+            <h2 class="collapsible-header" onclick="toggleSection('recentUpdatesList', this)">🕒 Recently Updated Profiles ▾</h2>
+            <div id="recentUpdatesList"></div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="collapsible-header" onclick="toggleSection('registeredUsersList', this)">📋 Registered Users ▾</h2>
+            <div id="registeredUsersList"></div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="collapsible-header" onclick="toggleSection('loggedUsersList', this)">✅ Logged-In Users ▾</h2>
+            <div id="loggedUsersList"></div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="collapsible-header" onclick="toggleSection('notLoggedInUsersList', this)">❌ Registered But Not Logged-In ▾</h2>
+            <div id="notLoggedInUsersList"></div>
+        </div>
+    </div>
+
+    <script>
+        const loggedInUser = localStorage.getItem("loggedInUser");
+
+        if (loggedInUser !== "Raeven") {
+            alert("Access denied. Only admin can enter.");
+            window.location.href = "../auth/login.html";
+        }
+
+        const loginBtn = document.getElementById("loginBtn");
+        loginBtn.innerHTML = "<b>" + loggedInUser + "</b>";
+        loginBtn.onclick = () => window.location.href = "profile.html";
+
+        const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.classList.remove("js-hidden");
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "../auth/login.html";
+        });
+
+        function toggleSection(id, header) {
+            const section = document.getElementById(id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+                header.innerHTML = header.innerHTML.replace("▸", "▾");
+            } else {
+                section.style.display = "none";
+                header.innerHTML = header.innerHTML.replace("▾", "▸");
+            }
+        }
+
+        function deleteUser(username) {
+            if (!confirm(`Are you sure you want to delete ${username}?`)) return;
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            users = users.filter(u => u.username !== username);
+            localStorage.setItem("users", JSON.stringify(users));
+            let loggedUsers = JSON.parse(localStorage.getItem("loggedUsers")) || [];
+            loggedUsers = loggedUsers.filter(u => u !== username);
+            localStorage.setItem("loggedUsers", JSON.stringify(loggedUsers));
+            renderAll();
+        }
+
+        function createUserCard(user, showDelete) {
+            const card = document.createElement("div");
+            card.className = "user-card";
+            const info = document.createElement("div");
+            info.className = "user-info";
+            const edited = user.phone || user.address;
+            info.innerHTML = `
+                <span class="username">👤 ${user.username}</span>
+                <span>📧 Email: ${user.email}</span>
+                <span>🔒 Password: ${user.password}</span>
+                <span>📞 Phone: ${user.phone || "—"}</span>
+                <span>🏠 Address: ${user.address || "—"}</span>
+                ${edited ? `<span class="edited-label">✏️ Profile edited</span>` : ""}
+            `;
+            card.appendChild(info);
+            if (showDelete) {
+                const btn = document.createElement("button");
+                btn.className = "delete-btn";
+                btn.innerText = "🗑 Delete";
+                btn.onclick = () => deleteUser(user.username);
+                card.appendChild(btn);
+            }
+            return card;
+        }
+
+        function renderAll() {
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const loggedUsers = JSON.parse(localStorage.getItem("loggedUsers")) || [];
+
+            const registeredUl = document.getElementById("registeredUsersList");
+            const loggedUl = document.getElementById("loggedUsersList");
+            const notLoggedInUl = document.getElementById("notLoggedInUsersList");
+            const recentUpdatesList = document.getElementById("recentUpdatesList");
+
+            registeredUl.innerHTML = "";
+            loggedUl.innerHTML = "";
+            notLoggedInUl.innerHTML = "";
+            recentUpdatesList.innerHTML = "";
+
+            const recentUpdates = JSON.parse(localStorage.getItem("recentUpdates")) || [];
+            if (recentUpdates.length === 0) {
+                recentUpdatesList.innerHTML = '<p class="no-users">No profile updates yet.</p>';
+            } else {
+                recentUpdates.forEach(update => {
+                    const card = document.createElement("div");
+                    card.className = "user-card";
+                    const changesHtml = update.changes.map(c => {
+                        if (c.before !== undefined && c.after !== undefined) {
+                            return `<span>✏️ ${c.field}: <span class="diff-before">${c.before}</span> → <span class="diff-after">${c.after}</span></span>`;
+                        }
+                        return `<span>✏️ ${c}</span>`;
+                    }).join("");
+                    card.innerHTML = `
+                        <div class="user-info">
+                            <span class="username">👤 ${update.username}</span>
+                            ${changesHtml}
+                            <span>🕒 ${update.date}</span>
+                        </div>
+                    `;
+                    recentUpdatesList.appendChild(card);
+                });
+            }
+
+            if (users.length === 0) {
+                registeredUl.innerHTML = '<p class="no-users">No registered users yet.</p>';
+            } else {
+                users.forEach(user => registeredUl.appendChild(createUserCard(user, true)));
+            }
+
+            const loggedInDetails = loggedUsers.map(u => users.find(x => x.username === u)).filter(Boolean);
+            if (loggedInDetails.length === 0) {
+                loggedUl.innerHTML = '<p class="no-users">No logged-in users.</p>';
+            } else {
+                loggedInDetails.forEach(user => loggedUl.appendChild(createUserCard(user, true)));
+            }
+
+            const notLoggedIn = users.filter(u => !loggedUsers.includes(u.username));
+            if (notLoggedIn.length === 0) {
+                notLoggedInUl.innerHTML = '<p class="no-users">All registered users have logged in.</p>';
+            } else {
+                notLoggedIn.forEach(user => notLoggedInUl.appendChild(createUserCard(user, true)));
+            }
+        }
+
+        renderAll();
+    </script>
+
+</body>
+</html>

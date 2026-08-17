@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - VenPCS</title>
+    <link rel="icon" href="../images/tablogo.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/user.css">
+    <script src="../js/theme.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+        <button onclick="window.location.href='../main/index.html'"><b>Home</b></button>
+        <button onclick="window.location.href='../main/products.html'"><b>IT Products</b></button>
+        <button onclick="window.location.href='../main/about.html'"><b>About</b></button>
+        <button onclick="alert('Error 69: Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <button class="active-page" onclick="window.location.href='feedback.html'"><b>Feedback</b></button>
+        <button id="loginBtn" onclick="window.location.href='../auth/login.html'"><b>Login/Signup</b></button>
+        <button id="logoutBtn" class="js-hidden"><b>Logout</b></button>
+        <button id="themeToggle">🌙 Dark</button>
+    </div>
+
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
+        <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+    </a>
+
+    <div class="feedback-page-content">
+
+        <!-- Left: Feedback Form -->
+        <div class="feedback-form-section">
+            <h2>Leave a Feedback</h2>
+            <input type="text" id="feedbackName" placeholder="Your Name">
+            <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+            <p id="formmessage"></p>
+            <button class="submit-btn" id="submitFeedbackBtn">SUBMIT</button>
+        </div>
+
+        <!-- Right: Feedback List -->
+        <div class="feedback-list-section">
+            <h2>What Others Say</h2>
+            <div id="feedbackList">
+                <p class="no-feedback">No feedback yet. Be the first!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Admin Panel Button -->
+    <button id="adminBtn"><b>Admin Panel</b></button>
+
+    <script>
+        const adminBtn = document.getElementById("adminBtn");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loggedInUser = localStorage.getItem("loggedInUser");
+
+        if (loggedInUser) {
+            loginBtn.innerHTML = "<b>" + loggedInUser + "</b>";
+            logoutBtn.classList.remove("js-hidden");
+            document.getElementById("feedbackName").value = loggedInUser;
+            document.getElementById("feedbackName").readOnly = true;
+            loginBtn.onclick = () => window.location.href = "profile.html";
+            adminBtn.style.display = loggedInUser === "Raeven" ? "block" : "none";
+        } else {
+            adminBtn.style.display = "none";
+        }
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "../auth/login.html";
+        });
+
+        adminBtn.addEventListener("click", () => {
+            window.location.href = "admin.html";
+        });
+
+        function loadFeedbacks() {
+            const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+            const feedbackList = document.getElementById("feedbackList");
+
+            if (feedbacks.length === 0) {
+                feedbackList.innerHTML = '<p class="no-feedback">No feedback yet. Be the first!</p>';
+                return;
+            }
+
+            feedbackList.innerHTML = "";
+            feedbacks.slice().reverse().forEach(fb => {
+                const card = document.createElement("div");
+                card.className = "feedback-card";
+                const displayName = fb.name === "Raeven" ? "Admin - Raeven" : fb.name;
+                const reversedIndex = feedbacks.length - 1 - feedbacks.slice().reverse().indexOf(fb);
+                card.innerHTML = `
+                    <p class="feedback-username">👤 ${displayName}</p>
+                    <p class="feedback-text">${fb.text}</p>
+                    <p class="feedback-date">${fb.date}</p>
+                    ${loggedInUser === "Raeven" ? `<button class="feedback-delete-btn" onclick="deleteFeedback(${reversedIndex})">🗑 Remove</button>` : ""}
+                `;
+                feedbackList.appendChild(card);
+            });
+        }
+
+        loadFeedbacks();
+
+        document.getElementById("submitFeedbackBtn").addEventListener("click", () => {
+            const name = document.getElementById("feedbackName").value.trim();
+            const text = document.getElementById("feedbackText").value.trim();
+            const formmessage = document.getElementById("formmessage");
+
+            if (!loggedInUser) {
+                formmessage.innerText = "Please login first!";
+                formmessage.style.color = "red";
+                return;
+            }
+
+            if (!name || !text) {
+                formmessage.innerText = "Please fill in all fields.";
+                formmessage.style.color = "red";
+                return;
+            }
+
+            const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+            const date = new Date().toLocaleDateString("en-PH", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" });
+            feedbacks.push({ name, text, date });
+            localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+            formmessage.innerText = "Feedback submitted!";
+            formmessage.style.color = "green";
+            document.getElementById("feedbackText").value = "";
+            loadFeedbacks();
+        });
+
+        function deleteFeedback(index) {
+            const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+            feedbacks.splice(index, 1);
+            localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+            loadFeedbacks();
+        }
+    </script>
+
+</body>
+</html>

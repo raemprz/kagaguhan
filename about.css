@@ -1,0 +1,145 @@
+/* ============================================================
+   VenPCS - about.css
+   About-page-only styles.
+   Uses the same variables and shared design from style.css.
+   ============================================================ */
+
+/* Navigation links/buttons — match the existing nav appearance */
+.navigation .nav-link,
+.navigation .nav-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+.navigation .nav-link:hover,
+.navigation .nav-action:hover {
+    background-color: rgba(255,255,255,0.15);
+    color: #ffffff;
+}
+
+.navigation .nav-link.active-page,
+.navigation .nav-action.active-page {
+    background-color: rgba(255,255,255,0.18);
+    color: #ffffff;
+}
+
+/* Keep the theme toggle identical to the shared version */
+.navigation #themeToggle {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: bold;
+    background-color: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.navigation #themeToggle:hover {
+    background-color: rgba(255,255,255,0.22);
+}
+
+/* Trusted-company list */
+.trusted-list ul {
+    max-width: 620px;
+    margin: 20px auto 0;
+    padding-left: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 40px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* About contact information + Contact Us button */
+.about-contact-strip {
+    max-width: 900px;
+    margin: 0 auto 60px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    text-align: center;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 24px 28px;
+    box-shadow: var(--shadow-card);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-contact-strip > div {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.about-contact-strip span {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.about-contact-strip a {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.about-contact-action p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.contact-page-button {
+    display: inline-block;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: white !important;
+}
+
+/* Contact button uses the same global button hover behavior */
+.contact-page-button:hover {
+    background-color: var(--primary-solid);
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .trusted-list ul {
+        grid-template-columns: 1fr;
+    }
+
+    .about-contact-strip {
+        gap: 20px;
+        padding: 22px;
+    }
+}
+
+@media (max-width: 520px) {
+    .navigation .nav-link,
+    .navigation .nav-action {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+}
+
+
+
+

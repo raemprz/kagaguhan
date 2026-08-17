@@ -1,0 +1,412 @@
+/* ============================================================
+   VenPCS - user.css
+   Loaded on: user/profile.html, user/feedback.html, user/admin.html
+   Requires: style.css (variables) loaded first.
+   Contains: profile card, feedback layout, admin panel.
+   ============================================================ */
+
+/* --- Profile page --- */
+.profile-page-content {
+    padding: 40px;
+    margin-top: calc(var(--nav-height) + 30px);
+}
+
+.profile-card {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-pill);
+    padding: 50px 40px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: var(--shadow-neomorph);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: var(--radius-circle);
+    background-color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: white;
+}
+
+.profile-card h1 {
+    color: rgba(10, 82, 155, 0.6);
+    font-size: 32px;
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+[data-theme="dark"] .profile-card h1 {
+    color: rgba(100, 160, 230, 0.75);
+}
+
+.profile-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.info-box {
+    background-color: var(--bg-input);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.info-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.info-input {
+    display: none;
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--text-primary);
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--primary);
+    outline: none;
+    font-family: var(--font);
+    width: 100%;
+    padding: 4px 0;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--border);
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-family: var(--font);
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.edit-btn:hover {
+    background-color: var(--primary-solid);
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--text-muted);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-family: var(--font);
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 2px;
+    display: none;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #666;
+}
+
+/* --- Feedback page --- */
+.feedback-page-content {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    margin-top: calc(var(--nav-height) + 30px);
+    box-sizing: border-box;
+}
+
+.feedback-form-section {
+    flex: 1;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 35px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: fit-content;
+    transition: background-color 0.3s ease;
+}
+
+.feedback-form-section h2 {
+    color: var(--primary);
+    font-size: 22px;
+    margin: 0;
+}
+
+.feedback-form-section input,
+.feedback-form-section textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    border: 2px solid transparent;
+    background-color: var(--bg-input);
+    font-size: 15px;
+    font-family: var(--font);
+    color: var(--text-primary);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background-color 0.3s ease;
+}
+
+.feedback-form-section input:focus,
+.feedback-form-section textarea:focus {
+    border-color: var(--primary);
+}
+
+.feedback-form-section input::placeholder,
+.feedback-form-section textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.feedback-form-section textarea {
+    height: 150px;
+    resize: none;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-family: var(--font);
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-solid);
+    transform: translateY(-1px);
+}
+
+#formmessage {
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.feedback-list-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.feedback-list-section h2 {
+    color: var(--primary);
+    font-size: 22px;
+    margin: 0 0 4px 0;
+}
+
+.feedback-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 6px;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.feedback-card:hover {
+    box-shadow: 4px 4px 14px rgba(0,0,0,0.1);
+}
+
+.feedback-username {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0;
+}
+
+.feedback-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.feedback-date {
+    font-size: 12px;
+    color: var(--text-light);
+    margin: 0;
+}
+
+.no-feedback {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.feedback-delete-btn {
+    background-color: var(--danger);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 13px;
+    margin-top: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.feedback-delete-btn:hover {
+    background-color: var(--danger-h);
+}
+
+/* --- Admin panel --- */
+.admin-page-content {
+    padding: 70px 60px 40px 60px;
+    margin-top: var(--nav-height);
+}
+
+.admin-page-content h1 {
+    color: var(--primary-solid);
+    font-size: 34px;
+    margin-bottom: 30px;
+}
+
+[data-theme="dark"] .admin-page-content h1 {
+    color: #6aabf0;
+}
+
+.section-card {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-card);
+    transition: background-color 0.3s ease;
+}
+
+.section-card h2 {
+    margin: 0 0 15px 0;
+    font-size: 19px;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 10px;
+}
+
+.user-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-info span {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.user-info .username {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.user-info .edited-label {
+    font-size: 12px;
+    color: var(--warning);
+    font-weight: bold;
+}
+
+.delete-btn {
+    background-color: var(--danger);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    font-family: var(--font);
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+    transition: background-color 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: var(--danger-h);
+}
+
+.no-users {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.diff-before {
+    color: var(--danger);
+}
+
+.diff-after {
+    color: var(--accent-green);
+}
+
+/* --- Responsive --- */
+@media (max-width: 800px) {
+    .feedback-page-content {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .admin-page-content {
+        padding: 20px;
+    }
+}

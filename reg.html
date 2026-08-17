@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/tablogo.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <script src="../js/theme.js"></script>
+    <title>Register - VenPCS</title>
+</head>
+<body>
+
+    <div class="navigation">
+        <button onclick="window.location.href='../main/index.html'"><b>Home</b></button>
+        <button onclick="window.location.href='../main/products.html'"><b>IT Products</b></button>
+        <button onclick="window.location.href='../main/about.html'"><b>About</b></button>
+        <button onclick="alert('Error 69: Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <button onclick="window.location.href='../user/feedback.html'"><b>Feedback</b></button>
+        <button class="active-page" onclick="window.location.href='login.html'"><b>Login/Signup</b></button>
+        <button id="themeToggle">🌙 Dark</button>
+    </div>
+
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
+        <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+    </a>
+
+    <div class="auth-page-content">
+        <div class="auth-card">
+            <h1>REGISTER</h1>
+
+            <div class="input-wrapper">
+                <input type="text" id="username" placeholder="Username">
+                <span>👤</span>
+            </div>
+
+            <div class="input-wrapper">
+                <input type="email" id="email" placeholder="Email">
+                <span>✉️</span>
+            </div>
+
+            <div class="input-wrapper">
+                <input type="password" id="password" placeholder="Password">
+                <span>🔒</span>
+            </div>
+
+            <div class="input-wrapper">
+                <input type="password" id="confirmpassword" placeholder="Confirm Password">
+                <span>🔒</span>
+            </div>
+
+            <p id="showpass">Show Password</p>
+
+            <p id="errormessage"></p>
+
+            <button class="auth-btn" id="signupbtn" type="button">SIGN UP</button>
+
+            <p class="bottom-text">Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        const showpass = document.getElementById("showpass");
+        const passfield = document.getElementById("password");
+        const confirmfield = document.getElementById("confirmpassword");
+        const signupbtn = document.getElementById("signupbtn");
+        const errormessage = document.getElementById("errormessage");
+
+        showpass.addEventListener("click", () => {
+            if (passfield.type === "text") {
+                passfield.type = "password";
+                confirmfield.type = "password";
+                showpass.innerHTML = "Show Password";
+            } else {
+                passfield.type = "text";
+                confirmfield.type = "text";
+                showpass.innerHTML = "Hide Password";
+            }
+        });
+
+        signupbtn.addEventListener("click", () => {
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const confirmpassword = document.getElementById("confirmpassword").value.trim();
+
+            if (!username || !email || !password || !confirmpassword) {
+                errormessage.innerText = "Please fill in all fields.";
+                errormessage.style.color = "red";
+                return;
+            }
+
+            if (username.length < 6 || username.length > 16) {
+                errormessage.innerText = "Username must be 6 to 16 characters.";
+                errormessage.style.color = "red";
+                return;
+            }
+
+            if (password !== confirmpassword) {
+                errormessage.innerText = "Passwords do not match.";
+                errormessage.style.color = "red";
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+
+            if (!users.find(u => u.username === "Raeven")) {
+                users.push({ username: "Raeven", email: "admin@venpcs.com", password: "Admin23" });
+                localStorage.setItem("users", JSON.stringify(users));
+            }
+
+            if (users.find(u => u.username === username)) {
+                errormessage.innerText = "Username already exists.";
+                errormessage.style.color = "red";
+                return;
+            }
+
+            users.push({ username, email, password });
+            localStorage.setItem("users", JSON.stringify(users));
+            errormessage.innerText = "Account created successfully!";
+            errormessage.style.color = "green";
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1500);
+        });
+    </script>
+
+</body>
+</html>

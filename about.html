@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="tablogo.png" type="image/png">
+    <title>About - VenPCS</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/about.css">
+    <script src="../js/theme.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navigation" aria-label="Main navigation">
+        <a class="nav-link" href="index.html"><b>Home</b></a>
+        <a class="nav-link" href="products.html"><b>IT Products</b></a>
+        <a class="nav-link active-page" href="about.html"><b>About</b></a>
+        <button class="nav-action" type="button" onclick="alert('Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <a class="nav-link" href="../user/feedback.html"><b>Feedback</b></a>
+        <button class="nav-action" id="loginBtn" data-login-href="../auth/login.html" type="button"><b>Login/Signup</b></button>
+        <button class="nav-action nav-hidden" id="logoutBtn" type="button"><b>Logout</b></button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+            <span class="theme-icon">🌙</span><span class="theme-label">Dark</span>
+        </button>
+    </nav>
+</header>
+
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
+    <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+</a>
+
+<main class="page-content">
+    <section class="about-hero">
+        <h1>About VenPCS</h1>
+        <p>VenPCS is a computer shop focused on quality PC products, components, accessories, and practical technology solutions for students, gamers, professionals, and everyday users.</p>
+    </section>
+
+    <section class="about-grid">
+        <article class="about-card">
+            <div class="about-icon">💻</div>
+            <h3>Our Mission</h3>
+            <p>To provide dependable computer products at practical prices while helping customers choose technology that fits their needs.</p>
+        </article>
+        <article class="about-card">
+            <div class="about-icon">🎯</div>
+            <h3>Our Vision</h3>
+            <p>To become a trusted destination for computer products, PC building, upgrades, and technology solutions.</p>
+        </article>
+        <article class="about-card">
+            <div class="about-icon">🛠️</div>
+            <h3>What We Offer</h3>
+            <p>PC components, peripherals, accessories, complete systems, and other products for different types of computer users.</p>
+        </article>
+    </section>
+
+    <section class="about-story">
+        <h2>Why Choose VenPCS?</h2>
+        <p>We believe buying computer hardware should be simple and understandable. VenPCS brings products from familiar technology companies together so customers can compare their options and choose equipment that suits their budget and purpose.</p>
+        <p>Our goal is to combine quality products with useful information and customer-focused service.</p>
+    </section>
+
+    <section class="about-story trusted-list">
+        <h2>Trusted Technology Companies</h2>
+        <p>VenPCS works with products from established technology brands, depending on product availability.</p>
+        <ul>
+            <li>AMD</li>
+            <li>Intel</li>
+            <li>NVIDIA</li>
+            <li>ASUS</li>
+            <li>MSI</li>
+            <li>GIGABYTE</li>
+            <li>Corsair</li>
+            <li>Kingston</li>
+        </ul>
+    </section>
+
+    <section class="about-contact-strip">
+        <div>
+            <span>📍</span>
+            <strong>San Nicolas, Hagonoy, Bulacan, Philippines</strong>
+        </div>
+        <div>
+            <span>✉️</span>
+            <a href="mailto:venpcs@gmail.com">venpcs@gmail.com</a>
+        </div>
+        <div>
+            <span>📞</span>
+            <a href="tel:+639121514577">+63 912-151-4577</a>
+        </div>
+        <div class="about-contact-action">
+            <p>For more information, visit our contact page.</p>
+            <a class="btn-primary contact-page-button" href="contact.html">Contact Us</a>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-bottom">© 2026 VenPCS. All rights reserved.</div>
+</footer>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (loggedInUser) {
+        // User is logged in
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-flex";
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.reload();
+        });
+
+    } else {
+        // User is logged out
+        loginBtn.style.display = "inline-flex";
+        logoutBtn.style.display = "none";
+
+        loginBtn.addEventListener("click", () => {
+            window.location.href = loginBtn.dataset.loginHref;
+        });
+    }
+
+});
+</script>
+
+
+
+</body>
+</html>

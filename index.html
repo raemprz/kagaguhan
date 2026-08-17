@@ -3,95 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GigaNigga</title>
+    <link rel="icon" href="../images/tablogo.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/shop.css">
+    <script src="../js/theme.js"></script>
+    <title>VenPCS</title>
 </head>
-<body> 
+<body>
 
-<style> 
-h1 {
-color: white; }
-a {
-    color: black;
-    text-decoration: underline;
-    font-family: 'Arial', sans-serif;
-    font-size: 40px;
-}
-body {
-    background-image: url("https://cdn.wallpapersafari.com/35/35/HV1QZk.jpg");
-    background-size: cover;  
-    
-}
+    <div class="navigation">
+        <button class="active-page" onclick="window.location.href='index.html'"><b>Home</b></button>
+        <button onclick="window.location.href='products.html'"><b>IT Products</b></button>
+        <button onclick="window.location.href='about.html'"><b>About</b></button>
+        <button onclick="alert('Error 69: Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <button id="feedbackBtn" onclick="window.location.href='../user/feedback.html'"><b>Feedback</b></button>
+        <button id="loginBtn" onclick="window.location.href='../auth/login.html'"><b>Login/Signup</b></button>
+        <button id="logoutBtn" class="js-hidden"><b>Logout</b></button>
+        <button id="themeToggle">🌙 Dark</button>
+        <button id="cartBtn" class="nav-cart-btn">
+            🛒<span id="cartCount">0</span>
+        </button>
+    </div>
 
-button {
-    font-family: sans-serif !important;
-    appearance: none;
-    -webkit-appearance: none;
-    font-size: 40px;
-}
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
+        <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+    </a>
 
-label {
-    color: white;
-    -webkit-text-stroke: 0.5px black;
-    font-size: 40px;
-}
+    <!-- Tagline -->
+    <div class="hero-tagline">
+        <div>
+            <p class="tagline-main">🏆 Authorized PC Seller &amp; Builder</p>
+            <p class="tagline-sub">Quality builds. Trusted brands. Affordable prices.</p>
+        </div>
+    </div>
 
-a {
-    color: black;
-    -webkit-text-stroke: 0.1px white;
-}
+    <!-- Banner Slideshow -->
+    <div id="bannerSlider">
+        <div id="bannerTrack">
+            <img src="../images/banner1.webp" class="banner-img" alt="Banner 1">
+            <img src="../images/banner2.webp" class="banner-img" alt="Banner 2">
+            <img src="../images/banner8.webp" class="banner-img" alt="Banner 3">
+            <img src="../images/banner12.webp" class="banner-img" alt="Banner 4">
+        </div>
+        <div class="banner-dots">
+            <span class="banner-dot active" onclick="goToSlide(0)"></span>
+            <span class="banner-dot" onclick="goToSlide(1)"></span>
+            <span class="banner-dot" onclick="goToSlide(2)"></span>
+            <span class="banner-dot" onclick="goToSlide(3)"></span>
+        </div>
+    </div>
 
-input {
-    width: 290px;
-    height: 30px;
-    font-size: 25px;
-}
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 
-</style>
-<center>
-<form>
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <h2>🛒 My Cart</h2>
+        <div id="cartItemsList"></div>
+        <div class="cart-total" id="cartTotal">Total: ₱0</div>
+        <button class="checkout-btn" onclick="checkout()">✔ Checkout</button>
+        <button class="cart-close" onclick="closeCart()">✖ Close</button>
+    </div>
 
+    <!-- Error Popup -->
+    <div class="popup-overlay" id="errorPopup">
+        <div class="popup-box">
+            <h2>⚠ Error 67</h2>
+            <p>Checkout is currently unavailable. Our payment system is under maintenance. Please try again later.</p>
+            <button class="popup-close-btn" onclick="document.getElementById('errorPopup').classList.remove('open')">OK</button>
+        </div>
+    </div>
 
-<br>
+    <!-- Page Content -->
+    <div class="page-content">
+        <p class="page-title">Featured IT Products</p>
 
-    <h1 style="font-family: sans-serif; font-size: 90px;"> <b>Login to Roblox!</b> </h1>
-    <b><label style="font-family: sans-serif;" for="email">Enter Username or Email: </label><br></b>
-    <input type="text" id="email" name="email">
+        <div class="product-grid">
 
-    <br>
-    <br>
+            <div class="product-card" data-category="processor">
+                <img src="../images/r9home3.jpg" class="product-img-placeholder" alt="AMD Ryzen 9">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">AMD</p>
+                <p class="product-name">AMD RYZEN 9 7900 AM5 12CORES 24THREADS</p>
+                <p class="product-price">₱24,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
 
-    <b><label style="font-family: sans-serif;"for="password">Enter Password: </label><br></b>
-    <input type="text" id="password" name="password"> <br><br>
+            <div class="product-card" data-category="processor">
+                <img src="../images/r7home3.webp" class="product-img-placeholder" alt="AMD Ryzen 7">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">AMD</p>
+                <p class="product-name">AMD RYZEN 7 5700X (OEM)</p>
+                <p class="product-price">₱7,200</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
 
-    <a href="https://roblox.com">
-    <button type="button" >Log in</button>
-</a>
+            <div class="product-card" data-category="processor">
+                <img src="../images/i5home3.jpg" class="product-img-placeholder" alt="Intel i5">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">INTEL</p>
+                <p class="product-name">INTEL CORE I5-14600KF</p>
+                <p class="product-price">₱18,495</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
 
-<br>
-<br>
-<br>
-<br>
+            <div class="product-card" data-category="processor">
+                <img src="../images/r7fanhome.webp" class="product-img-placeholder" alt="AMD Ryzen 7 Boxed">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">AMD</p>
+                <p class="product-name">AMD RYZEN 7 5700G BOXED W/ FAN</p>
+                <p class="product-price">₱11,500</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
 
-<a href="https://en.help.roblox.com/hc/en-us/articles/203313070-I-Forgot-My-Password">Forgot Email or Password?</a>
+            <div class="product-card" data-category="graphics-card">
+                <img src="../images/rtxhome2.jpg" class="product-img-placeholder" alt="RTX 4090">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">NVIDIA</p>
+                <p class="product-name">NVIDIA RTX 4090 24GB GDDR6X</p>
+                <p class="product-price">₱89,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
 
-<br>
-<br>
-<br>
-<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
-    <button type="button">Email me a One-Time code</button>
-</a>
+            <div class="product-card" data-category="graphics-card">
+                <img src="../images/rxhome.jpeg" class="product-img-placeholder" alt="RX 7900 XTX">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">AMD</p>
+                <p class="product-name">AMD RADEON RX 7900 XTX 24GB</p>
+                <p class="product-price">₱59,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
 
-<br>
-<br>
-<a href="https://monkeytype.com/">
-<button type="button" style="font-size: 30px;">
-    Don't have an account? Sign up
-</button>
-</a>
+            <div class="product-card" data-category="motherboard">
+                <img src="../images/mobohome1.webp" class="product-img-placeholder" alt="ASUS ROG Strix B550-F">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">ASUS</p>
+                <p class="product-name">ASUS ROG STRIX B550-F GAMING WIFI</p>
+                <p class="product-price">₱12,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
 
-</form>
-</center>
-    
-    
+            <div class="product-card" data-category="motherboard">
+                <img src="../images/mobohome3.webp" class="product-img-placeholder" alt="MSI MAG B650">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">MSI</p>
+                <p class="product-name">MSI MAG B650 TOMAHAWK WIFI</p>
+                <p class="product-price">₱14,500</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="ram">
+                <img src="../images/ramhome.webp" class="product-img-placeholder" alt="Corsair Vengeance DDR5">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">CORSAIR</p>
+                <p class="product-name">CORSAIR VENGEANCE 32GB DDR5 6000MHz</p>
+                <p class="product-price">₱8,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="ram">
+                <img src="../images/ramhome2.jpg" class="product-img-placeholder" alt="Kingston Fury Beast DDR4">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">KINGSTON</p>
+                <p class="product-name">KINGSTON FURY BEAST 16GB DDR4 3200MHz</p>
+                <p class="product-price">₱3,499</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="ssd">
+                <img src="../images/nvmehome.webp" class="product-img-placeholder" alt="Samsung 990 Pro">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">SAMSUNG</p>
+                <p class="product-name">SAMSUNG 990 PRO 1TB NVME M.2 SSD</p>
+                <p class="product-price">₱6,499</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="ssd">
+                <img src="../images/nvmehome3.webp" class="product-img-placeholder" alt="WD Black SN850X">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">WD</p>
+                <p class="product-name">WD BLACK SN850X 2TB NVME SSD</p>
+                <p class="product-price">₱9,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/rogstrixhome.webp" class="product-img-placeholder" alt="ASUS ROG Strix G16">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">ASUS</p>
+                <p class="product-name">ASUS ROG STRIX G16 G614JV-N4369W</p>
+                <p class="product-price">₱109,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/acerhome.webp" class="product-img-placeholder" alt="Acer Predator Helios 300">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">ACER</p>
+                <p class="product-name">ACER PREDATOR HELIOS 300 PH315-55-78LF</p>
+                <p class="product-price">₱111,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/gigahome.webp" class="product-img-placeholder" alt="Gigabyte Aorus">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">GIGABYTE</p>
+                <p class="product-name">GIGABYTE AORUS ASG-63PHC64SH</p>
+                <p class="product-price">₱133,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/acerpred.webp" class="product-img-placeholder" alt="Acer Predator Neo">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">ACER</p>
+                <p class="product-name">ACER PREDATOR NEO PHN16-72-96H6</p>
+                <p class="product-price">₱121,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/legionhome.webp" class="product-img-placeholder" alt="Lenovo Legion 7i">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">LENOVO</p>
+                <p class="product-name">LENOVO LEGION 7i I9GW72KL</p>
+                <p class="product-price">₱194,720</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/legionhome3.webp" class="product-img-placeholder" alt="Lenovo Legion 5">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">LENOVO</p>
+                <p class="product-name">LENOVO LEGION 5 15IRX10 (83LY0095PH)</p>
+                <p class="product-price">₱97,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/acerpredhome.webp" class="product-img-placeholder" alt="Acer Predator PHN16">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">ACER</p>
+                <p class="product-name">ACER PREDATOR PHN16S-71-72WE OPI</p>
+                <p class="product-price">₱97,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/acertrihome.jpg" class="product-img-placeholder" alt="Acer Predator Helios Neo">
+                <span class="product-tag">Out of Stock</span>
+                <p class="product-brand">ACER</p>
+                <p class="product-name">ACER PREDATOR HELIOS NEO PH16-72-94UE</p>
+                <p class="product-price">₱95,999</p>
+                <button class="product-btn">👁 View Details</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Admin Panel Button -->
+    <button id="adminBtn"><b>Admin Panel</b></button>
+
+    <!-- Brands Section -->
+    <div class="brands-section">
+        <p class="brands-title">Trusted by Leading Brands</p>
+        <p class="brands-subtitle">We partner with the world's best technology brands</p>
+        <div class="brands-track-wrapper">
+            <div class="brands-track">
+                <span>MSI</span><span>GIGABYTE</span><span>AMD</span><span>Intel</span>
+                <span>CORSAIR</span><span>Kingston</span><span>Logitech</span><span>ASUS</span>
+                <span>ACER</span><span>NVIDIA</span>
+                <span>MSI</span><span>GIGABYTE</span><span>AMD</span><span>Intel</span>
+                <span>CORSAIR</span><span>Kingston</span><span>Logitech</span><span>ASUS</span>
+                <span>ACER</span><span>NVIDIA</span>
+                <span>MSI</span><span>GIGABYTE</span><span>AMD</span><span>Intel</span>
+                <span>CORSAIR</span><span>Kingston</span><span>Logitech</span><span>ASUS</span>
+                <span>ACER</span><span>NVIDIA</span>
+                <span>MSI</span><span>GIGABYTE</span><span>AMD</span><span>Intel</span>
+                <span>CORSAIR</span><span>Kingston</span><span>Logitech</span><span>ASUS</span>
+                <span>ACER</span><span>NVIDIA</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="../images/venpcslogonew.png" alt="VenPCS Logo">
+                <div class="footer-contact">
+                    <span>📍 Bulacan, Philippines</span>
+                    <span>✉️ venpcs@email.com</span>
+                    <span>📞 +63 912-151-4577</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>About Us</h3>
+                <a href="about.html">About VenPCS</a>
+                <a href="#">Careers</a>
+                <a href="about.html">Contact Us</a>
+                <a href="#">Store Locations</a>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <a href="#">PC Builder</a>
+                <a href="#">Build Your Own</a>
+                <a href="#">Comparison Tool</a>
+                <a href="#">Custom Orders</a>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <a href="#">Payment FAQ</a>
+                <a href="#">Request an Item</a>
+                <a href="#">Order Tracking</a>
+                <a href="#">After-Sales Support</a>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <a href="#">Terms and Conditions</a>
+                <a href="#">Data Privacy</a>
+                <a href="#">Cancellation Policy</a>
+                <a href="#">Return &amp; Refund Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 VenPCS. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Auth state
+        const adminBtn = document.getElementById("adminBtn");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loggedInUser = localStorage.getItem("loggedInUser");
+
+        if (loggedInUser) {
+            loginBtn.innerHTML = "<b>" + loggedInUser + "</b>";
+            logoutBtn.classList.remove("js-hidden");
+            loginBtn.onclick = () => window.location.href = "../user/profile.html";
+            adminBtn.style.display = loggedInUser === "Raeven" ? "block" : "none";
+        } else {
+            adminBtn.style.display = "none";
+        }
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "../auth/login.html";
+        });
+
+        adminBtn.addEventListener("click", () => {
+            window.location.href = "../user/admin.html";
+        });
+
+        // Filter
+        function filterProducts(category) {
+            document.querySelectorAll(".product-card").forEach(card => {
+                card.classList.toggle("hidden", category !== "all" && card.dataset.category !== category);
+            });
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+            if (event && event.target) event.target.classList.add("active");
+        }
+
+        // Cart
+        document.getElementById("cartBtn").addEventListener("click", () => {
+            document.getElementById("cartSidebar").classList.toggle("open");
+            document.getElementById("cartOverlay").classList.toggle("open");
+            renderCart();
+        });
+
+        function closeCart() {
+            document.getElementById("cartSidebar").classList.remove("open");
+            document.getElementById("cartOverlay").classList.remove("open");
+        }
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem("cart_" + loggedInUser)) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem("cart_" + loggedInUser, JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const total = getCart().reduce((sum, item) => sum + item.qty, 0);
+            const countEl = document.getElementById("cartCount");
+            countEl.style.display = total > 0 ? "inline" : "none";
+            countEl.innerText = total;
+        }
+
+        function renderCart() {
+            const cart = getCart();
+            const list = document.getElementById("cartItemsList");
+            const totalEl = document.getElementById("cartTotal");
+            list.innerHTML = "";
+            if (cart.length === 0) {
+                list.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+                totalEl.innerText = "Total: ₱0";
+                return;
+            }
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `
+                    <p class="cart-item-name">${item.name}</p>
+                    <p class="cart-item-price">₱${item.price.toLocaleString()} each</p>
+                    <div class="cart-item-controls">
+                        <button onclick="changeQty(${index}, -1)">−</button>
+                        <span>${item.qty}</span>
+                        <button onclick="changeQty(${index}, 1)">+</button>
+                        <button class="cart-item-delete" onclick="removeItem(${index})">🗑 Remove</button>
+                    </div>
+                    <p class="cart-item-subtotal">Subtotal: ₱${(item.price * item.qty).toLocaleString()}</p>
+                `;
+                list.appendChild(div);
+            });
+            totalEl.innerText = "Total: ₱" + total.toLocaleString();
+        }
+
+        function changeQty(index, change) {
+            const cart = getCart();
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            saveCart(cart);
+            renderCart();
+        }
+
+        function removeItem(index) {
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+            renderCart();
+        }
+
+        function checkout() {
+            if (!loggedInUser) { alert("Please login first!"); return; }
+            if (getCart().length === 0) { alert("Your cart is empty!"); return; }
+            document.getElementById("errorPopup").classList.add("open");
+        }
+
+        updateCartCount();
+
+        // Banner Slideshow
+        let currentSlide = 0;
+        const totalSlides = 4;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            document.getElementById("bannerTrack").style.transform = `translateX(-${index * 100}%)`;
+            document.querySelectorAll(".banner-dot").forEach((dot, i) => {
+                dot.classList.toggle("active", i === index);
+            });
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }, 4500);
+    </script>
+
 </body>
 </html>

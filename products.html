@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/tablogo.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/shop.css">
+    <script src="../js/theme.js"></script>
+    <title>IT Products - VenPCS</title>
+</head>
+<body>
+
+    <div class="navigation">
+        <button onclick="window.location.href='index.html'"><b>Home</b></button>
+        <button class="active-page" onclick="window.location.href='products.html'"><b>IT Products</b></button>
+        <button onclick="window.location.href='about.html'"><b>About</b></button>
+        <button onclick="alert('Error 69: Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <button id="feedbackBtn" onclick="window.location.href='../user/feedback.html'"><b>Feedback</b></button>
+        <button id="loginBtn" onclick="window.location.href='../auth/login.html'"><b>Login/Signup</b></button>
+        <button id="logoutBtn" class="js-hidden"><b>Logout</b></button>
+        <button id="themeToggle">🌙 Dark</button>
+        <button id="cartBtn" class="nav-cart-btn">
+            🛒<span id="cartCount">0</span>
+        </button>
+    </div>
+
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
+        <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+    </a>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <h2>🛒 My Cart</h2>
+        <div id="cartItemsList"></div>
+        <div class="cart-total" id="cartTotal">Total: ₱0</div>
+        <button class="checkout-btn" onclick="checkout()">✔ Checkout</button>
+        <button class="cart-close" onclick="closeCart()">✖ Close</button>
+    </div>
+
+    <!-- Error Popup -->
+    <div class="popup-overlay" id="errorPopup">
+        <div class="popup-box">
+            <h2>⚠ Error 67</h2>
+            <p>Checkout is currently unavailable. Our payment system is under maintenance. Please try again later.</p>
+            <button class="popup-close-btn" onclick="document.getElementById('errorPopup').classList.remove('open')">OK</button>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <p class="page-title">IT Products</p>
+        <p class="page-subtitle">Discover our wide selection of quality tech products</p>
+
+        <div class="category-filters">
+            <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+            <button class="filter-btn" onclick="filterProducts('processor')">Processor</button>
+            <button class="filter-btn" onclick="filterProducts('graphics-card')">Graphics Card</button>
+            <button class="filter-btn" onclick="filterProducts('motherboard')">Motherboard</button>
+            <button class="filter-btn" onclick="filterProducts('ram')">RAM</button>
+            <button class="filter-btn" onclick="filterProducts('ssd')">SSD</button>
+            <button class="filter-btn" onclick="filterProducts('laptops')">Laptops</button>
+            <button class="filter-btn" onclick="filterProducts('mouse')">Mouse</button>
+            <button class="filter-btn" onclick="filterProducts('keyboard')">Keyboard</button>
+        </div>
+
+        <div class="product-grid">
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/gigani.jpg" alt="Gigabyte Aorus Laptop" class="product-img-placeholder">
+                <span class="product-category">LAPTOPS</span>
+                <p class="product-name">Gigabyte Aorus ASG-63PHC64SH</p>
+                <p class="product-desc">Dominate the digital battlefield with this powerful gaming laptop...</p>
+                <p class="product-price">₱133,999</p>
+                <button class="product-btn" onclick="addToCart('Gigabyte Aorus ASG-63PHC64SH', 133999)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/acerpred.webp" alt="Acer Predator Laptop" class="product-img-placeholder">
+                <span class="product-category">LAPTOPS</span>
+                <p class="product-name">Acer Predator Neo PHN16-72-96H6</p>
+                <p class="product-desc">Unleash your gaming potential with the Acer Predator Neo...</p>
+                <p class="product-price">₱121,999</p>
+                <button class="product-btn" onclick="addToCart('Acer Predator Neo PHN16-72-96H6', 121999)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/acerneo.avif" alt="Acer Predator Helios 300" class="product-img-placeholder">
+                <span class="product-category">LAPTOPS</span>
+                <p class="product-name">Acer Predator Helios 300 PH315-55-78LF</p>
+                <p class="product-desc">Dominate the game with the Acer Predator Helios 300...</p>
+                <p class="product-price">₱111,999</p>
+                <button class="product-btn" onclick="addToCart('Acer Predator Helios 300 PH315-55-78LF', 111999)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="laptops">
+                <img src="../images/asusrog.jfif" alt="Asus ROG Strix G16 Laptop" class="product-img-placeholder">
+                <span class="product-category">LAPTOPS</span>
+                <p class="product-name">Asus ROG Strix G16 G614JV-N4369W</p>
+                <p class="product-desc">Dominate the gaming arena with the Asus ROG Strix G16...</p>
+                <p class="product-price">₱109,999</p>
+                <button class="product-btn" onclick="addToCart('Asus ROG Strix G16 G614JV-N4369W', 109999)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="processor">
+                <img src="../images/i999.webp" alt="Intel Core i9-14900K" class="product-img-placeholder">
+                <span class="product-category">PROCESSOR</span>
+                <p class="product-name">Intel Core i9-14900K</p>
+                <p class="product-desc">24-core flagship processor for extreme gaming and content creation...</p>
+                <p class="product-price">₱24,999</p>
+                <button class="product-btn" onclick="addToCart('Intel Core i9-14900K', 24999)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="processor">
+                <img src="../images/r9.jpg" alt="AMD Ryzen 9 7950X" class="product-img-placeholder">
+                <span class="product-category">PROCESSOR</span>
+                <p class="product-name">AMD Ryzen 9 7950X</p>
+                <p class="product-desc">16-core powerhouse for professional workloads and heavy multitasking...</p>
+                <p class="product-price">₱21,999</p>
+                <button class="product-btn" onclick="addToCart('AMD Ryzen 9 7950X', 21999)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="mouse">
+                <img src="../images/mouse.webp" alt="Logitech G Pro X Superlight" class="product-img-placeholder">
+                <span class="product-category">MOUSE</span>
+                <p class="product-name">Logitech G Pro X Superlight</p>
+                <p class="product-desc">Ultra lightweight wireless gaming mouse for the real gaming pros...</p>
+                <p class="product-price">₱6,999</p>
+                <button class="product-btn" onclick="addToCart('Logitech G Pro X Superlight', 6999)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="graphics-card">
+                <img src="../images/test.webp" alt="RX 5500XT" class="product-img-placeholder">
+                <span class="product-category">GRAPHICS CARD</span>
+                <p class="product-name">RX 5500XT</p>
+                <p class="product-desc">Premium mechanical keyboard with RGB lighting, RGB is everything...</p>
+                <p class="product-price">₱11,499</p>
+                <button class="product-btn" onclick="addToCart('RX 5500XT', 11499)">🛒 Add to Cart</button>
+            </div>
+
+            <div class="product-card" data-category="keyboard">
+                <img src="../images/redragonfizz.jpg" alt="Redragon Fizz K617" class="product-img-placeholder">
+                <span class="product-category">KEYBOARD</span>
+                <p class="product-name">Redragon Fizz K617</p>
+                <p class="product-desc">Premium mechanical keyboard with RGB lighting, RGB is everything...</p>
+                <p class="product-price">₱1,499</p>
+                <button class="product-btn" onclick="addToCart('Redragon Fizz K617', 1499)">🛒 Add to Cart</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Admin Panel Button -->
+    <button id="adminBtn"><b>Admin Panel</b></button>
+
+    <script>
+        const adminBtn = document.getElementById("adminBtn");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loggedInUser = localStorage.getItem("loggedInUser");
+
+        if (loggedInUser) {
+            loginBtn.innerHTML = "<b>" + loggedInUser + "</b>";
+            logoutBtn.classList.remove("js-hidden");
+            loginBtn.onclick = () => window.location.href = "../user/profile.html";
+            adminBtn.style.display = loggedInUser === "Raeven" ? "block" : "none";
+        } else {
+            adminBtn.style.display = "none";
+        }
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "../auth/login.html";
+        });
+
+        adminBtn.addEventListener("click", () => {
+            window.location.href = "../user/admin.html";
+        });
+
+        function filterProducts(category) {
+            document.querySelectorAll(".product-card").forEach(card => {
+                card.classList.toggle("hidden", category !== "all" && card.dataset.category !== category);
+            });
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+            if (event && event.target) event.target.classList.add("active");
+        }
+
+        // Cart
+        document.getElementById("cartBtn").addEventListener("click", () => {
+            document.getElementById("cartSidebar").classList.toggle("open");
+            document.getElementById("cartOverlay").classList.toggle("open");
+            renderCart();
+        });
+
+        function closeCart() {
+            document.getElementById("cartSidebar").classList.remove("open");
+            document.getElementById("cartOverlay").classList.remove("open");
+        }
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem("cart_" + loggedInUser)) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem("cart_" + loggedInUser, JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const total = getCart().reduce((sum, item) => sum + item.qty, 0);
+            const countEl = document.getElementById("cartCount");
+            countEl.style.display = total > 0 ? "inline" : "none";
+            countEl.innerText = total;
+        }
+
+        function addToCart(name, price) {
+            if (!loggedInUser) { alert("Please login first to add items to cart!"); return; }
+            const cart = getCart();
+            const existing = cart.find(item => item.name === name);
+            if (existing) { existing.qty += 1; } else { cart.push({ name, price, qty: 1 }); }
+            saveCart(cart);
+            alert(name + " added to cart!");
+        }
+
+        function renderCart() {
+            const cart = getCart();
+            const list = document.getElementById("cartItemsList");
+            const totalEl = document.getElementById("cartTotal");
+            list.innerHTML = "";
+            if (cart.length === 0) {
+                list.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+                totalEl.innerText = "Total: ₱0";
+                return;
+            }
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `
+                    <p class="cart-item-name">${item.name}</p>
+                    <p class="cart-item-price">₱${item.price.toLocaleString()} each</p>
+                    <div class="cart-item-controls">
+                        <button onclick="changeQty(${index}, -1)">−</button>
+                        <span>${item.qty}</span>
+                        <button onclick="changeQty(${index}, 1)">+</button>
+                        <button class="cart-item-delete" onclick="removeItem(${index})">🗑 Remove</button>
+                    </div>
+                    <p class="cart-item-subtotal">Subtotal: ₱${(item.price * item.qty).toLocaleString()}</p>
+                `;
+                list.appendChild(div);
+            });
+            totalEl.innerText = "Total: ₱" + total.toLocaleString();
+        }
+
+        function changeQty(index, change) {
+            const cart = getCart();
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            saveCart(cart);
+            renderCart();
+        }
+
+        function removeItem(index) {
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+            renderCart();
+        }
+
+        function checkout() {
+            if (!loggedInUser) { alert("Please login first!"); return; }
+            if (getCart().length === 0) { alert("Your cart is empty!"); return; }
+            document.getElementById("errorPopup").classList.add("open");
+        }
+
+        updateCartCount();
+    </script>
+
+</body>
+</html>

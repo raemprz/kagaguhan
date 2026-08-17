@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - VenPCS</title>
+    <link rel="icon" href="../images/tablogo.png" type="image/png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/user.css">
+    <script src="../js/theme.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+        <button onclick="window.location.href='../main/index.html'"><b>Home</b></button>
+        <button onclick="window.location.href='../main/products.html'"><b>IT Products</b></button>
+        <button onclick="window.location.href='../main/about.html'"><b>About</b></button>
+        <button onclick="alert('Error 69: Orders functionality is currently unavailable.')"><b>Orders</b></button>
+        <button onclick="window.location.href='feedback.html'"><b>Feedback</b></button>
+        <button id="loginBtn" onclick="window.location.href='../auth/login.html'"><b>Login/Signup</b></button>
+        <button id="logoutBtn" class="js-hidden"><b>Logout</b></button>
+        <button id="themeToggle">🌙 Dark</button>
+    </div>
+
+    <img id="wc" src="../images/venpcslogonew.png" alt="VenPCS Logo">
+
+    <div class="profile-page-content">
+        <div class="profile-card">
+            <div class="profile-avatar">👤</div>
+            <h1>PROFILE</h1>
+
+            <div class="profile-info">
+                <div class="info-box">
+                    <p class="info-label">Username</p>
+                    <p class="info-value" id="profileUsername">—</p>
+                </div>
+                <div class="info-box">
+                    <p class="info-label">Email</p>
+                    <p class="info-value" id="profileEmail">—</p>
+                </div>
+                <div class="info-box">
+                    <p class="info-label">Password</p>
+                    <p class="info-value" id="profilePasswordDisplay">—</p>
+                    <input class="info-input" type="password" id="profilePasswordInput" placeholder="Enter new password">
+                </div>
+                <div class="info-box">
+                    <p class="info-label">Phone</p>
+                    <p class="info-value" id="profilePhone">—</p>
+                    <input class="info-input" type="text" id="profilePhoneInput" placeholder="Enter phone number">
+                </div>
+                <div class="info-box">
+                    <p class="info-label">Address</p>
+                    <p class="info-value" id="profileAddress">—</p>
+                    <input class="info-input" type="text" id="profileAddressInput" placeholder="Enter address">
+                </div>
+                <div class="info-box">
+                    <p class="info-label">Account Type</p>
+                    <p class="info-value" id="profileRole">—</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <button class="edit-btn" id="editBtn">EDIT</button>
+            <button class="cancel-btn" id="cancelBtn">CANCEL</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel Button -->
+    <button id="adminBtn"><b>Admin Panel</b></button>
+
+    <script>
+        const adminBtn = document.getElementById("adminBtn");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loggedInUser = localStorage.getItem("loggedInUser");
+
+        if (!loggedInUser) {
+            window.location.href = "../auth/login.html";
+        }
+
+        loginBtn.innerHTML = "<b>" + loggedInUser + "</b>";
+        loginBtn.onclick = () => window.location.href = "profile.html";
+        logoutBtn.classList.remove("js-hidden");
+
+        if (loggedInUser === "Raeven") {
+            adminBtn.style.display = "block";
+            document.getElementById("profileUsername").innerText = loggedInUser;
+            document.getElementById("profileEmail").innerText = "admin@venpcs.com";
+            const pwDisplay = document.getElementById("profilePasswordDisplay");
+            pwDisplay.innerText = "Password cannot be changed here.";
+            pwDisplay.style.color = "var(--warning)";
+            pwDisplay.style.fontSize = "13px";
+            const adminData = JSON.parse(localStorage.getItem("adminProfile")) || {};
+            document.getElementById("profilePhone").innerText = adminData.phone || "—";
+            document.getElementById("profileAddress").innerText = adminData.address || "—";
+            document.getElementById("profileRole").innerText = "Administrator";
+        } else {
+            adminBtn.style.display = "none";
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const currentUser = users.find(u => u.username === loggedInUser);
+            document.getElementById("profileUsername").innerText = loggedInUser;
+            document.getElementById("profileEmail").innerText = currentUser ? currentUser.email : "—";
+            document.getElementById("profilePasswordDisplay").innerText = currentUser ? "•".repeat(currentUser.password.length) : "—";
+            document.getElementById("profilePhone").innerText = currentUser && currentUser.phone ? currentUser.phone : "—";
+            document.getElementById("profileAddress").innerText = currentUser && currentUser.address ? currentUser.address : "—";
+            document.getElementById("profileRole").innerText = "User";
+        }
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "../auth/login.html";
+        });
+
+        adminBtn.addEventListener("click", () => {
+            window.location.href = "admin.html";
+        });
+
+        const editBtn = document.getElementById("editBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const passwordDisplay = document.getElementById("profilePasswordDisplay");
+        const passwordInput = document.getElementById("profilePasswordInput");
+        const phoneDisplay = document.getElementById("profilePhone");
+        const phoneInput = document.getElementById("profilePhoneInput");
+        const addressDisplay = document.getElementById("profileAddress");
+        const addressInput = document.getElementById("profileAddressInput");
+        let editing = false;
+
+        editBtn.addEventListener("click", () => {
+            if (!editing) {
+                if (loggedInUser !== "Raeven") {
+                    passwordDisplay.style.display = "none";
+                    passwordInput.style.display = "block";
+                }
+                phoneDisplay.style.display = "none";
+                phoneInput.style.display = "block";
+                addressDisplay.style.display = "none";
+                addressInput.style.display = "block";
+                editBtn.innerText = "SAVE";
+                cancelBtn.style.display = "block";
+                editing = true;
+            } else {
+                const newPassword = passwordInput.value.trim();
+                const newPhone = phoneInput.value.trim();
+                const newAddress = addressInput.value.trim();
+
+                if (newPassword && newPassword.length < 6) {
+                    alert("Password must be at least 6 characters.");
+                    return;
+                }
+
+                if (loggedInUser === "Raeven") {
+                    const adminData = JSON.parse(localStorage.getItem("adminProfile")) || {};
+                    const changes = [];
+                    if (newPhone) { changes.push({ field: "Phone", before: adminData.phone || "—", after: newPhone }); adminData.phone = newPhone; phoneDisplay.innerText = newPhone; }
+                    if (newAddress) { changes.push({ field: "Address", before: adminData.address || "—", after: newAddress }); adminData.address = newAddress; addressDisplay.innerText = newAddress; }
+                    localStorage.setItem("adminProfile", JSON.stringify(adminData));
+                    if (changes.length > 0) {
+                        const date = new Date().toLocaleDateString("en-PH", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" });
+                        const recentUpdates = JSON.parse(localStorage.getItem("recentUpdates")) || [];
+                        recentUpdates.unshift({ username: "Raeven (Admin)", changes, date });
+                        if (recentUpdates.length > 20) recentUpdates.pop();
+                        localStorage.setItem("recentUpdates", JSON.stringify(recentUpdates));
+                    }
+                } else {
+                    const users = JSON.parse(localStorage.getItem("users")) || [];
+                    const userIndex = users.findIndex(u => u.username === loggedInUser);
+                    if (userIndex !== -1) {
+                        const changes = [];
+                        if (newPassword) { changes.push({ field: "Password", before: users[userIndex].password, after: newPassword }); users[userIndex].password = newPassword; passwordDisplay.innerText = "•".repeat(newPassword.length); }
+                        if (newPhone) { changes.push({ field: "Phone", before: users[userIndex].phone || "—", after: newPhone }); users[userIndex].phone = newPhone; phoneDisplay.innerText = newPhone; }
+                        if (newAddress) { changes.push({ field: "Address", before: users[userIndex].address || "—", after: newAddress }); users[userIndex].address = newAddress; addressDisplay.innerText = newAddress; }
+                        localStorage.setItem("users", JSON.stringify(users));
+                        if (changes.length > 0) {
+                            const date = new Date().toLocaleDateString("en-PH", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" });
+                            const recentUpdates = JSON.parse(localStorage.getItem("recentUpdates")) || [];
+                            recentUpdates.unshift({ username: loggedInUser, changes, date });
+                            if (recentUpdates.length > 20) recentUpdates.pop();
+                            localStorage.setItem("recentUpdates", JSON.stringify(recentUpdates));
+                        }
+                    }
+                }
+
+                passwordDisplay.style.display = "block";
+                passwordInput.style.display = "none";
+                passwordInput.value = "";
+                phoneDisplay.style.display = "block";
+                phoneInput.style.display = "none";
+                phoneInput.value = "";
+                addressDisplay.style.display = "block";
+                addressInput.style.display = "none";
+                addressInput.value = "";
+                editBtn.innerText = "EDIT";
+                cancelBtn.style.display = "none";
+                editing = false;
+            }
+        });
+
+        cancelBtn.addEventListener("click", () => {
+            passwordDisplay.style.display = "block";
+            passwordInput.style.display = "none";
+            passwordInput.value = "";
+            phoneDisplay.style.display = "block";
+            phoneInput.style.display = "none";
+            phoneInput.value = "";
+            addressDisplay.style.display = "block";
+            addressInput.style.display = "none";
+            addressInput.value = "";
+            editBtn.innerText = "EDIT";
+            cancelBtn.style.display = "none";
+            editing = false;
+        });
+    </script>
+
+</body>
+</html>
